@@ -17,7 +17,7 @@ import { EmployeeDataService } from './employee/employee-data.service';
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
 	root: 'http://localhost:3000/',
 	timeout: 3000, // request timeout
-}
+};
 
 @NgModule({
 	declarations: [AppComponent],
@@ -31,7 +31,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
 					component: AllEmployeesComponent,
 				},
 			],
-			{ initialNavigation: 'enabledBlocking' }
+			{ initialNavigation: 'enabledNonBlocking' }
 		),
 		StoreModule.forRoot(reducers, {
 			metaReducers: !environment.production ? [] : [],
@@ -40,18 +40,18 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
 				strictStateImmutability: true,
 			},
 		}),
-		EntityDataModule.forRoot({
-			entityMetadata: appEntityMetadata,
-		}),
 		EffectsModule.forRoot([]),
 		!environment.production ? StoreDevtoolsModule.instrument() : [],
 		StoreRouterConnectingModule.forRoot(),
+		EntityDataModule.forRoot({
+			entityMetadata: appEntityMetadata,
+		}),
 	],
-	providers: [EmployeeDataService,{ provide: DefaultDataServiceConfig, useValue:    defaultDataServiceConfig }],
+	providers: [EmployeeDataService, { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig }],
 	bootstrap: [AppComponent],
 })
 export class AppModule {
-	constructor(entityDataService: EntityDataService, EmployeeDataService: EmployeeDataService) {
-		entityDataService.registerService('Employee', EmployeeDataService);
+	constructor(entityDataService: EntityDataService, employeeDataService: EmployeeDataService) {
+		entityDataService.registerService('Employee', employeeDataService);
 	}
 }
