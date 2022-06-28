@@ -13,6 +13,7 @@ export class EmployeeDataService extends DefaultDataService<Employee> {
 	}
 
 	override getAll(): Observable<Employee[]> {
-		return this.http.get<Employee[]>('http://localhost:3000/employees');
+		console.log('Inside EmployeeDataService.getAll() method');
+		return super.getAll();
 	}
 }

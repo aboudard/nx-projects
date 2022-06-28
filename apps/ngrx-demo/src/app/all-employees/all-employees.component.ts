@@ -1,22 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { Employee } from '../employee/employee';
 import { EmployeeService } from '../employee/employee.service';
 import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'nx-projects-all-employees',
-	standalone: true,
-	imports: [CommonModule],
 	templateUrl: './all-employees.component.html',
 	styleUrls: ['./all-employees.component.scss'],
 })
-export class AllEmployeesComponent implements OnInit {
+export class AllEmployeesComponent {
 	employees$: Observable<Employee[]> | undefined;
 
 	constructor(private employeeService: EmployeeService) {
-		this.employees$ = employeeService.entities$;
+		this.employees$ = employeeService.getAll();
 	}
-
-	ngOnInit(): void {}
 }
