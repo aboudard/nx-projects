@@ -10,7 +10,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { reducers } from './state/root.reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { DefaultDataServiceConfig, EntityDataModule, EntityDataService } from '@ngrx/data';
-import { appEntityMetadata } from './state/entities/app-entity-metadata';
+import { entityConfig } from './state/entities/app-entity-metadata';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
 import { EmployeeDataService } from './employee/employee-data.service';
 
@@ -43,9 +43,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
 		EffectsModule.forRoot([]),
 		!environment.production ? StoreDevtoolsModule.instrument() : [],
 		StoreRouterConnectingModule.forRoot(),
-		EntityDataModule.forRoot({
-			entityMetadata: appEntityMetadata,
-		}),
+		EntityDataModule.forRoot(entityConfig),
 	],
 	providers: [EmployeeDataService, { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig }],
 	bootstrap: [AppComponent],

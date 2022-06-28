@@ -12,6 +12,7 @@ export class AllEmployeesComponent {
 	employees$: Observable<Employee[]> | undefined;
 
 	constructor(private employeeService: EmployeeService) {
-		this.employees$ = employeeService.getAll();
+		this.employeeService.getAll();
+		this.employees$ = this.employeeService.entities$;
 	}
 }
